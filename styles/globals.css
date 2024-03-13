@@ -1,0 +1,18 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-family: "Lato", sans-serif;
+}
+
+:root {
+  --harmony-font: "Playfair Display", sans-serif;
+  --accent: hsla(271, 89%, 53%, 1);
+  --accent-shadow: 0 0 8px hsla(271, 89%, 53%, 0.45);
+  --white: #f2f2f2;
+  --black: hsl(0, 0%, 10%);
+}
