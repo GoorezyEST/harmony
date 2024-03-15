@@ -14,7 +14,9 @@
 }
 
 .container {
-  width: max-content;
+  position: relative;
+  width: 100%;
+  max-width: 575px;
   height: auto;
   max-height: 400px;
   display: flex;
@@ -22,8 +24,8 @@
   align-items: center;
   background-color: var(--black);
   border-radius: 8px;
-  padding: 32px;
-  gap: 32px;
+  padding: 32px 48px;
+  gap: 64px;
   box-shadow: var(--accent-shadow);
   overflow-y: scroll;
 }
@@ -47,7 +49,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 32px;
+  gap: 64px;
 }
 
 .container ul li {
@@ -58,15 +60,56 @@
   width: auto;
 }
 
-.container_cta {
-  padding: 10px 32px;
-  font-size: 14px;
+.cta_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+  width: 80%;
+}
+
+.cta_primary {
   color: var(--white);
   background-color: var(--accent);
+}
+
+.cta_secondary {
+  color: var(--black);
+  background-color: var(--white);
+}
+
+.cta_primary,
+.cta_secondary {
+  padding: 10px 32px;
+  width: 100%;
+  font-size: 14px;
+  font-weight: 600;
   outline: none;
   border: none;
   border-radius: 8px;
   cursor: pointer;
+}
+
+.cta_randomize {
+  position: fixed;
+  transform: translate(calc((-575px / 2) + 32px), -24px);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+  background-color: var(--black);
+  outline: none;
+  border: none;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.75);
+  cursor: pointer;
+  z-index: 150;
+}
+
+.cta_randomize > svg {
+  height: 60%;
+  width: auto;
 }
 
 .form_text {
@@ -84,6 +127,10 @@
 
 .form_text p {
   font-size: 20px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
 }
 
 .form_text span,

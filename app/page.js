@@ -9,6 +9,7 @@ import Footer from "./components/Footer";
 import { useGlobal } from "@/context/GlobalContext";
 import SelectVisualizersOverlay from "./components/SelectVisualizersOverlay";
 import { useEffect } from "react";
+import ShortCutsBanner from "./components/ShortCutsBanner";
 
 export default function Home() {
   const { userFiles, setUserFiles, setUserVisualizer, setUserSongs } =
@@ -25,6 +26,7 @@ export default function Home() {
       {userFiles !== null && <SelectVisualizersOverlay />}
       <Hero />
       <UploadFiles />
+      <ShortCutsBanner />
       <Information />
       <Footer />
     </main>

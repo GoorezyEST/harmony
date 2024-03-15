@@ -3,10 +3,16 @@ import styles from "@/styles/modules/select-visualizers-overlay.module.css";
 import { useGlobal } from "@/context/GlobalContext";
 import { VisualizersData } from "@/VisualizersData";
 import { useRouter } from "next/navigation";
+import DiceIcon from "./icons/DiceIcon";
 
 function SelectVisualizersOverlay() {
-  const { userFiles, userVisualizer, setUserVisualizer, setUserSongs } =
-    useGlobal();
+  const {
+    setUserFiles,
+    userFiles,
+    userVisualizer,
+    setUserVisualizer,
+    setUserSongs,
+  } = useGlobal();
   const router = useRouter();
 
   function handleVisualizerChange(file, visualizerName) {
@@ -38,15 +44,45 @@ function SelectVisualizersOverlay() {
 
       setUserSongs(arrSongs);
       router.push("/player");
-    } else {
-      // Handle case where not all files have visualizers selected
-      // For example, show an error message or prompt users to select visualizers for all files
     }
   }
+
+  function handleUserCancel() {
+    setUserFiles(null);
+    setUserVisualizer({});
+    setUserSongs(null);
+  }
+
+  const randomizeVisualizersSelection = () => {
+    const arrFiles = Array.from(userFiles);
+
+    const filesToRandomize = arrFiles.filter(
+      (file) => !userVisualizer.hasOwnProperty(file.name)
+    );
+
+    filesToRandomize.forEach((file) => {
+      setUserVisualizer((prevState) => ({
+        ...prevState,
+        [file.name]: {
+          visualizer: VisualizersData[Math.trunc(Math.random() * 5)].name,
+          audio: file,
+        },
+      }));
+    });
+  };
 
   return (
     <section className={styles.wrapper}>
       <form className={styles.container} onSubmit={(e) => handleSubmit(e)}>
+        <button
+          type="button"
+          className={styles.cta_randomize}
+          onClick={() => {
+            randomizeVisualizersSelection();
+          }}
+        >
+          <DiceIcon />
+        </button>
         {userFiles !== null && (
           <ul>
             {Array.from(userFiles).map((file) => {
@@ -83,7 +119,19 @@ function SelectVisualizersOverlay() {
             })}
           </ul>
         )}
-        <input type="submit" className={styles.container_cta} />
+        <div className={styles.cta_container}>
+          <input
+            type="submit"
+            className={styles.cta_primary}
+            value="Let's start"
+          />
+          <input
+            type="button"
+            className={styles.cta_secondary}
+            value="Cancel"
+            onClick={() => handleUserCancel()}
+          />
+        </div>
       </form>
     </section>
   );

@@ -1,0 +1,116 @@
+.global_wrapper {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+}
+
+.wrapper {
+  width: 100%;
+  padding: 64px 0;
+}
+
+.hero_wrapper {
+  background-image: linear-gradient(
+    hsl(0, 0%, 14%) 0%,
+    hsl(0, 0%, 12%) 50%,
+    hsl(0, 0%, 12%) 100%
+  );
+  padding-top: calc(64px + 88px);
+}
+
+.shortcut_wrapper {
+  background-image: linear-gradient(
+    hsl(0, 0%, 12%) 0%,
+    hsl(0, 0%, 8%) 50%,
+    hsl(0, 0%, 4%) 100%
+  );
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.container {
+  width: 100%;
+  max-width: 375px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 64px;
+  margin: 0 auto;
+}
+
+.hero_container > h1 {
+  font-size: 48px;
+  line-height: 48px;
+  font-weight: 600;
+  text-align: center;
+  color: var(--accent);
+  letter-spacing: 4px;
+}
+
+.shortcut_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0px;
+}
+
+.shortcut_container > kbd {
+  padding: 0.375rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: hsl(0, 0%, 25%);
+  background-color: hsl(0, 0%, 90%);
+  border-width: 1px;
+  border-color: hsl(0, 0%, 80%);
+  border-radius: 4px;
+}
+
+.shortcut_container > h2 {
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--white);
+  line-height: calc(20px * 1.2);
+  width: 100%;
+  text-align: center;
+  margin-top: 16px;
+  margin-bottom: 8px;
+}
+
+.shortcut_container > p {
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--white);
+  line-height: calc(16px * 1.5);
+  width: 100%;
+  text-align: center;
+  opacity: 0.95;
+  margin-top: 8px;
+  margin-bottom: 24px;
+}
+
+.marquee {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(2px);
+  padding: 12px 0;
+  text-decoration: none;
+  border-bottom: 1px solid hsl(0, 0%, 100%, 0.3);
+  z-index: 150;
+}
+
+.marquee > span {
+  display: inline-block;
+  font-size: 14px;
+  color: var(--white);
+  line-height: 100%;
+  width: 100%;
+  text-align: center;
+}

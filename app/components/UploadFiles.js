@@ -1,12 +1,20 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import styles from "@/styles/modules/upload-files.module.css";
 import UploadIcon from "./icons/UploadIcon";
 
 import { useGlobal } from "@/context/GlobalContext";
 
 function UploadFiles() {
-  const { setUserFiles } = useGlobal();
+  const { userFiles, setUserFiles } = useGlobal();
   const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (userFiles === null) {
+      const dt = new DataTransfer();
+      const input = inputRef.current;
+      input.files = dt.files;
+    }
+  }, [userFiles]);
 
   const filesUploaded = (files) => {
     setUserFiles(files);
@@ -19,6 +27,9 @@ function UploadFiles() {
   const dropHandler = (e) => {
     e.preventDefault();
     inputRef.current.files = e.dataTransfer.files;
+
+    const changeEvent = new Event("change", { bubbles: true });
+    inputRef.current.dispatchEvent(changeEvent);
   };
 
   return (

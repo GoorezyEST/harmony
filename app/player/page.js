@@ -189,11 +189,11 @@ function PlayerPage() {
               visibility: hideUI ? "hidden" : "visible",
             }}
           >
+            <kbd onClick={() => handleKbdClick("KeyQ")}>Q</kbd>
+            <kbd onClick={() => handleKbdClick("KeyS")}>S</kbd>
+            <kbd onClick={() => handleKbdClick("KeyH")}>H</kbd>
             <kbd onClick={() => handleKbdClick("KeyC")}>C</kbd>
             <kbd onClick={() => handleKbdClick("KeyP")}>P</kbd>
-            <kbd onClick={() => handleKbdClick("KeyH")}>H</kbd>
-            <kbd onClick={() => handleKbdClick("KeyS")}>S</kbd>
-            <kbd onClick={() => handleKbdClick("KeyQ")}>Q</kbd>
           </div>
           <canvas ref={canvasRef} className={styles.visualizer}></canvas>
           <div ref={glowRef} className={styles.visualizer_glow}></div>
