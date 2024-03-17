@@ -6,6 +6,10 @@ import { useGlobal } from "@/context/GlobalContext";
 import { setUpPlayer } from "@/functions/SetUpPlayer";
 import PlayIcon from "../components/icons/PlayIcon";
 import { useRouter } from "next/navigation";
+import AudioPauseIcon from "../components/icons/AudioPauseIcon";
+import AudioPlayIcon from "../components/icons/AudioPlayIcon";
+import AudioVolumeIcon from "../components/icons/AudioVolumeIcon";
+import AudioMutedIcon from "../components/icons/AudioMutedIcon";
 
 function PlayerPage() {
   const { userSongs } = useGlobal();
@@ -103,10 +107,12 @@ function PlayerPage() {
     if (key === "KeyP") {
       if (audioPlayerRef.current !== null) {
         if (audioPlayerRef.current.paused) {
+          setAudioIconBool(false);
           audioPlayerRef.current.play();
           return;
         }
         if (!audioPlayerRef.current.paused) {
+          setAudioIconBool(true);
           audioPlayerRef.current.pause();
           return;
         }
@@ -135,6 +141,95 @@ function PlayerPage() {
     if (dec === "n") {
       setShowConfirmation(false);
       return;
+    }
+  }
+
+  const progressBarRef = useRef(null);
+
+  function handleProgressBar(e) {
+    const progressBar = progressBarRef.current;
+    const rect = progressBar.getBoundingClientRect();
+    let offsetX = e.clientX - rect.left;
+
+    offsetX = Math.max(0, Math.min(offsetX, progressBar.clientWidth));
+
+    const percent = offsetX / progressBar.clientWidth;
+
+    if (audioPlayerRef.current.duration > 0) {
+      audioPlayerRef.current.currentTime =
+        percent * audioPlayerRef.current.duration;
+      progressBar.value = percent;
+    }
+  }
+
+  function handleDragStart(e) {
+    e.preventDefault();
+    document.addEventListener("mousemove", handleDragging);
+    document.addEventListener("mouseup", handleDragEnd);
+  }
+
+  function handleDragging(e) {
+    handleProgressBar(e);
+  }
+
+  function handleDragEnd(e) {
+    handleProgressBar(e);
+    document.removeEventListener("mousemove", handleDragging);
+    document.removeEventListener("mouseup", handleDragEnd);
+  }
+
+  function handleTimeUpdated() {
+    if (!audioPlayerRef.current.paused) {
+      const audio = audioPlayerRef.current;
+      const progressBar = progressBarRef.current;
+
+      if (audio && progressBar) {
+        const currentTime = audio.currentTime;
+        const duration = audio.duration;
+
+        // Check if duration is a finite number
+        const percent = Number.isFinite(duration) ? currentTime / duration : 0;
+
+        progressBar.value = percent;
+
+        // Format and display current time as before
+        const minutes = Math.floor(currentTime / 60);
+        const seconds = Math.floor(currentTime % 60);
+        const formattedTime = `${minutes < 10 ? "0" : ""}${minutes}:${
+          seconds < 10 ? "0" : ""
+        }${seconds}`;
+        setSongCurrentTime(formattedTime);
+      }
+    }
+  }
+
+  const [audioIconBool, setAudioIconBool] = useState(false);
+
+  function toggleAudioState() {
+    if (audioPlayerRef.current) {
+      if (audioPlayerRef.current.paused) {
+        audioPlayerRef.current.play();
+        setAudioIconBool(false);
+        return;
+      }
+      if (!audioPlayerRef.current.paused) {
+        audioPlayerRef.current.pause();
+        setAudioIconBool(true);
+        return;
+      }
+    }
+  }
+
+  const [songCurrentTime, setSongCurrentTime] = useState(null);
+
+  const [volume, setVolume] = useState(1);
+
+  function handleVolumeChange(e) {
+    const newVolume = parseFloat(e.target.value);
+    setVolume(newVolume);
+
+    if (audioPlayerRef.current) {
+      audioPlayerRef.current.volume = newVolume;
     }
   }
 
@@ -201,7 +296,44 @@ function PlayerPage() {
             className={styles.controls}
             style={{ bottom: toggleControls ? "-68px" : "0px" }}
           >
-            <audio controls ref={audioPlayerRef}></audio>
+            <div className={styles.custom_audio}>
+              <button
+                className={styles.custom_audio_btn}
+                onClick={() => toggleAudioState()}
+              >
+                {audioIconBool && <AudioPlayIcon />}
+                {!audioIconBool && <AudioPauseIcon />}
+              </button>
+              <div className={styles.custom_audio_time_cotainer}>
+                <span>{songCurrentTime}</span>
+              </div>
+              <div className={styles.custom_audio_progress_container}>
+                <progress
+                  ref={progressBarRef}
+                  className={styles.custom_audio_progress}
+                  value="0"
+                  max="1"
+                  onClick={(e) => handleProgressBar(e)}
+                  onMouseDown={(e) => handleDragStart(e)}
+                ></progress>
+              </div>
+              <button className={styles.custom_audio_volume_cotainer}>
+                {volume !== 0 ? <AudioVolumeIcon /> : <AudioMutedIcon />}
+                <input
+                  type="range"
+                  max="1"
+                  min="0"
+                  step="0.01"
+                  value={volume}
+                  onChange={handleVolumeChange}
+                />
+              </button>
+            </div>
+            <audio
+              controls
+              ref={audioPlayerRef}
+              onTimeUpdate={() => handleTimeUpdated()}
+            ></audio>
           </div>
         </section>
       )}
