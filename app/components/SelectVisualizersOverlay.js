@@ -30,7 +30,6 @@ function SelectVisualizersOverlay() {
 
     const arrFiles = Array.from(userFiles);
 
-    // Check if visualizers are selected for all files
     const allFilesHaveVisualizers = arrFiles.every((file) =>
       userVisualizer.hasOwnProperty(file.name)
     );
@@ -55,16 +54,34 @@ function SelectVisualizersOverlay() {
 
   const randomizeVisualizersSelection = () => {
     const arrFiles = Array.from(userFiles);
+    const usedVisualizers = new Set();
 
     const filesToRandomize = arrFiles.filter(
       (file) => !userVisualizer.hasOwnProperty(file.name)
     );
 
     filesToRandomize.forEach((file) => {
+      if (usedVisualizers.size === VisualizersData.length) {
+        usedVisualizers.clear();
+      }
+
+      let visualizerIndex;
+      let attemptCount = 0;
+      do {
+        visualizerIndex = Math.trunc(Math.random() * VisualizersData.length);
+        attemptCount++;
+        // Exit loop if all visualizers have been tried
+        if (attemptCount >= VisualizersData.length) {
+          return;
+        }
+      } while (usedVisualizers.has(visualizerIndex));
+
+      usedVisualizers.add(visualizerIndex);
+
       setUserVisualizer((prevState) => ({
         ...prevState,
         [file.name]: {
-          visualizer: VisualizersData[Math.trunc(Math.random() * 5)].name,
+          visualizer: VisualizersData[visualizerIndex].name,
           audio: file,
         },
       }));
