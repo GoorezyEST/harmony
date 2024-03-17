@@ -26,8 +26,8 @@ export function EvzelynVisualizer(
     ctx.beginPath();
 
     ctx.arc(0, barHeight, barHeight / 60, 0, Math.PI * 2);
-    ctx.arc(0, barWidth / 1.25, barHeight / 120, 0, Math.PI * 3);
-    ctx.arc(0, barHeight / 1.5, barHeight / 180, 0, Math.PI * 4);
+    ctx.arc(0, barHeight / 2, barHeight / 180, 0, Math.PI * 2);
+    ctx.arc(0, barWidth / 1.25, barWidth / 2, 0, Math.PI / 4);
 
     ctx.fill();
 
