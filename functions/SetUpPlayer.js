@@ -136,6 +136,13 @@ export const setUpPlayer = (
       console.log("No more sounds");
     }
   });
+
+  // Event listener for window resize
+  window.addEventListener("resize", () => {
+    // Update canvas dimensions
+    canvasReference.width = window.innerWidth;
+    canvasReference.height = window.innerHeight;
+  });
 };
 
 //Function to retrieve the total instensity used to the glow animation
