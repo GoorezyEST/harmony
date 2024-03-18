@@ -10,6 +10,7 @@ import AudioPauseIcon from "../components/icons/AudioPauseIcon";
 import AudioPlayIcon from "../components/icons/AudioPlayIcon";
 import AudioVolumeIcon from "../components/icons/AudioVolumeIcon";
 import AudioMutedIcon from "../components/icons/AudioMutedIcon";
+import PlayerNoFiles from "../components/Player-NoFiles";
 
 function PlayerPage() {
   const { userSongs } = useGlobal();
@@ -235,8 +236,8 @@ function PlayerPage() {
 
   return (
     <main className={styles.wrapper} ref={containerRef}>
-      {userSongs.length === 0 ? (
-        <p>No files</p>
+      {userSongs === null ? (
+        <PlayerNoFiles />
       ) : (
         <section>
           {!visualizationStarted && (
