@@ -70,21 +70,19 @@ function SelectVisualizersOverlay() {
       do {
         visualizerIndex = Math.trunc(Math.random() * VisualizersData.length);
         attemptCount++;
-        // Exit loop if all visualizers have been tried
-        if (attemptCount >= VisualizersData.length) {
-          return;
+        if (!usedVisualizers.has(visualizerIndex)) {
+          usedVisualizers.add(visualizerIndex);
+
+          setUserVisualizer((prevState) => ({
+            ...prevState,
+            [file.name]: {
+              visualizer: VisualizersData[visualizerIndex].name,
+              audio: file,
+            },
+          }));
+          break; // Exit the loop if a visualizer is assigned
         }
-      } while (usedVisualizers.has(visualizerIndex));
-
-      usedVisualizers.add(visualizerIndex);
-
-      setUserVisualizer((prevState) => ({
-        ...prevState,
-        [file.name]: {
-          visualizer: VisualizersData[visualizerIndex].name,
-          audio: file,
-        },
-      }));
+      } while (attemptCount < VisualizersData.length);
     });
   };
 
