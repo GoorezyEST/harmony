@@ -1,22 +1,22 @@
 export const VisualizersData = [
   {
     name: "TrailsVisualizer",
-    img: "https://i.imgur.com/Aua3ZBi.png",
+    img: "https://i.imgur.com/W2P6rJz.png",
   },
   {
     name: "LeafsVisualizer",
-    img: "https://i.imgur.com/9kz7XfQ.png",
+    img: "https://i.imgur.com/ean9gUG.png",
   },
   {
     name: "ParticlesVisualizer",
-    img: "https://i.imgur.com/Vyh2u0T.png",
+    img: "https://i.imgur.com/xzDUYL7.png",
   },
   {
     name: "LinesVisualizer",
-    img: "https://i.imgur.com/EdLfs6Q.png",
+    img: "https://i.imgur.com/gg52QeW.png",
   },
   {
     name: "EvzelynVisualizer",
-    img: "https://i.imgur.com/wSNmdBd.png",
+    img: "https://i.imgur.com/KVZf6mC.png",
   },
 ];
