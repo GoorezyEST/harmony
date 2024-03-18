@@ -1,34 +1,27 @@
 "use client";
 
-import styles from "@/styles/modules/home.module.css";
-import UploadFiles from "./components/UploadFiles";
-import Hero from "./components/Hero";
-import Information from "./components/Information";
-import Footer from "./components/Footer";
-
-import { useGlobal } from "@/context/GlobalContext";
-import SelectVisualizersOverlay from "./components/SelectVisualizersOverlay";
-import { useEffect } from "react";
-import ShortCutsBanner from "./components/ShortCutsBanner";
+import { useState, useEffect } from "react";
+import HomePage from "./components/HomePage";
+import NotSupported from "./components/NotSupported";
 
 export default function Home() {
-  const { userFiles, setUserFiles, setUserVisualizer, setUserSongs } =
-    useGlobal();
+  const [isAllowed, setIsAllowed] = useState(true);
 
   useEffect(() => {
-    setUserFiles(null);
-    setUserVisualizer({});
-    setUserSongs(null);
+    const handleResize = () => {
+      if (window.innerWidth < 1024) {
+        setIsAllowed(false);
+      }
+    };
+
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
-  return (
-    <main className={styles.wrapper}>
-      {userFiles !== null && <SelectVisualizersOverlay />}
-      <Hero />
-      <UploadFiles />
-      <ShortCutsBanner />
-      <Information />
-      <Footer />
-    </main>
-  );
+  return <>{isAllowed ? <HomePage /> : <NotSupported />}</>;
 }
