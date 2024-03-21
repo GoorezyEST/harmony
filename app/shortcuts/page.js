@@ -3,6 +3,7 @@ import styles from "@/styles/modules/shorcuts-page.module.css";
 import Footer from "../components/Footer";
 import Link from "next/link";
 
+// Array containing data about different shortcuts
 const ShortcutsData = [
   {
     key: "P",
@@ -34,14 +35,17 @@ const ShortcutsData = [
 function ShortcutsPage() {
   return (
     <main className={styles.global_wrapper}>
+      {/* Link to navigate back to the home page */}
       <Link href="/" className={styles.marquee}>
         <span>-&gt;&nbsp;&nbsp;BACK TO HOME&nbsp;&nbsp;&lt;-</span>
       </Link>
+      {/* Section for displaying page title */}
       <section className={`${styles.wrapper} ${styles.hero_wrapper}`}>
         <div className={`${styles.container} ${styles.hero_container}`}>
           <h1>Our Shortcuts</h1>
         </div>
       </section>
+      {/* Section for displaying shortcut data */}
       <section className={`${styles.wrapper} ${styles.shortcut_wrapper}`}>
         {ShortcutsData.map((shortcut, index) => (
           <div
@@ -54,6 +58,7 @@ function ShortcutsPage() {
           </div>
         ))}
       </section>
+      {/* Rendering Footer component */}
       <Footer />
     </main>
   );

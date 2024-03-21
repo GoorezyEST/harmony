@@ -5,9 +5,11 @@ import UploadIcon from "./icons/UploadIcon";
 import { useGlobal } from "@/context/GlobalContext";
 
 function UploadFiles() {
+  // Accessing userFiles and setUserFiles from GlobalContext
   const { userFiles, setUserFiles } = useGlobal();
   const inputRef = useRef(null);
 
+  // Effect to set input files if userFiles is null
   useEffect(() => {
     if (userFiles === null) {
       const dt = new DataTransfer();
@@ -16,14 +18,17 @@ function UploadFiles() {
     }
   }, [userFiles]);
 
+  // Function to handle files uploaded by the user
   const filesUploaded = (files) => {
     setUserFiles(files);
   };
 
+  // Function to handle drag over event
   const dragHandler = (e) => {
     e.preventDefault();
   };
 
+  // Function to handle drop event
   const dropHandler = (e) => {
     e.preventDefault();
     inputRef.current.files = e.dataTransfer.files;

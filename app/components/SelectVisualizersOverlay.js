@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import DiceIcon from "./icons/DiceIcon";
 
 function SelectVisualizersOverlay() {
+  // Accessing state and functions from GlobalContext
   const {
     setUserFiles,
     userFiles,
@@ -15,6 +16,7 @@ function SelectVisualizersOverlay() {
   } = useGlobal();
   const router = useRouter();
 
+  // Function to handle change in visualizer selection for a file
   function handleVisualizerChange(file, visualizerName) {
     setUserVisualizer((prevState) => ({
       ...prevState,
@@ -25,6 +27,7 @@ function SelectVisualizersOverlay() {
     }));
   }
 
+  // Function to handle form submission
   function handleSubmit(e) {
     e.preventDefault();
 
@@ -46,12 +49,14 @@ function SelectVisualizersOverlay() {
     }
   }
 
+  // Function to handle user cancellation
   function handleUserCancel() {
     setUserFiles(null);
     setUserVisualizer({});
     setUserSongs(null);
   }
 
+  // Function to randomize visualizers selection for files
   const randomizeVisualizersSelection = () => {
     const arrFiles = Array.from(userFiles);
     const usedVisualizers = new Set();

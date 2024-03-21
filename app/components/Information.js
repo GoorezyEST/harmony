@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "@/styles/modules/information.module.css";
 
+// Array containing information items
 const listItems = [
   {
     title: "What is Harmony?",

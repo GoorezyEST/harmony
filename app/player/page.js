@@ -22,6 +22,7 @@ function PlayerPage() {
   const containerRef = useRef(null);
   const glowRef = useRef(null);
 
+  // Function to start audio visualization
   function startPlaying() {
     setVisualizationStarted(true);
 
@@ -51,6 +52,7 @@ function PlayerPage() {
   const [hideUI, setHideUI] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
 
+  // Effect to handle keyboard events
   useEffect(() => {
     function handleKeyPress(e) {
       console.log(e.code);
@@ -96,6 +98,7 @@ function PlayerPage() {
     };
   }, []);
 
+  // Function to handle keyboard clicks
   function handleKbdClick(key) {
     if (key === "KeyC") {
       setToggleControls((prev) => !prev);
@@ -134,6 +137,7 @@ function PlayerPage() {
     return;
   }
 
+  // Function to handle user quitting confirmation
   function handleUserQuit(dec) {
     if (dec === "y") {
       router.replace("/");
@@ -147,6 +151,7 @@ function PlayerPage() {
 
   const progressBarRef = useRef(null);
 
+  // Function to handle progress bar interaction
   function handleProgressBar(e) {
     const progressBar = progressBarRef.current;
     const rect = progressBar.getBoundingClientRect();
@@ -163,22 +168,26 @@ function PlayerPage() {
     }
   }
 
+  // Function to handle drag start event
   function handleDragStart(e) {
     e.preventDefault();
     document.addEventListener("mousemove", handleDragging);
     document.addEventListener("mouseup", handleDragEnd);
   }
 
+  // Function to handle dragging event
   function handleDragging(e) {
     handleProgressBar(e);
   }
 
+  // Function to handle drag end event
   function handleDragEnd(e) {
     handleProgressBar(e);
     document.removeEventListener("mousemove", handleDragging);
     document.removeEventListener("mouseup", handleDragEnd);
   }
 
+  // Function to update current time of the audio
   function handleTimeUpdated() {
     if (!audioPlayerRef.current.paused) {
       const audio = audioPlayerRef.current;
@@ -206,6 +215,7 @@ function PlayerPage() {
 
   const [audioIconBool, setAudioIconBool] = useState(false);
 
+  // Function to toggle audio state
   function toggleAudioState() {
     if (audioPlayerRef.current) {
       if (audioPlayerRef.current.paused) {
@@ -225,6 +235,7 @@ function PlayerPage() {
 
   const [volume, setVolume] = useState(1);
 
+  // Function to handle volume change
   function handleVolumeChange(e) {
     const newVolume = parseFloat(e.target.value);
     setVolume(newVolume);

@@ -12,9 +12,11 @@ import { useEffect } from "react";
 import ShortCutsBanner from "./ShortCutsBanner";
 
 export default function HomePage() {
+  // Accessing global context functions and state
   const { userFiles, setUserFiles, setUserVisualizer, setUserSongs } =
     useGlobal();
 
+  // Reset user files, visualizers, and songs on component mount
   useEffect(() => {
     setUserFiles(null);
     setUserVisualizer({});
