@@ -8,4 +8,4 @@ También desarrollé un reproductor personalizado y agregue atajos de teclado pa
 
 🔥 En el siguiente video donde podrás ver las principales características y el funcionamiento de Harmony 🔥
 
-[![YouTube Thumbnail](https://i.imgur.com/Fgtn1EY.png)](https://www.youtube.com/watch?v=MHlXjlTEAFw&ab_channel=GoorezyDev)
+[![YouTube Thumbnail](https://i.imgur.com/pbJpfe1.png)](https://www.youtube.com/watch?v=MHlXjlTEAFw&ab_channel=GoorezyDev)
